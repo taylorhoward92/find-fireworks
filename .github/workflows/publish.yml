@@ -46,7 +46,7 @@ jobs:
         uses: codecov/codecov-action@v3
 
       - name: Publish to Firebase
-        run: npx firebase --non-interactive -P ${{ secrets.FIREBASE_PROJECT_ID }} deploy --force -m "${{ GITHUB_REF_NAME }}"
+        run: npx firebase --non-interactive -P ${{ secrets.FIREBASE_PROJECT_ID }} deploy --force -m "${{ env.GITHUB_REF_NAME }}"
         env:
           GCP_SA_KEY: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_FIND_FIREWORKS }}"
           NODE_ENV: production
