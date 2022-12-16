@@ -12,5 +12,5 @@ jobs:
       - name: Release please
         uses: google-github-actions/release-please-action@v3
         with:
-          token: {{ secrets.FIND_FIREWORKS_GITHUB_TOKEN }}
+          token: ${{ secrets.FIND_FIREWORKS_GITHUB_TOKEN }}
           command: manifest

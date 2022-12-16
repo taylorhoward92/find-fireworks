@@ -22,8 +22,9 @@ jobs:
       - name: Cache Firebase Emulators
         uses: actions/cache@v3
         with:
-          path: ${{ env.FIREBASE_EMULATORS_PATH }}
+          path: ${{ github.workspace }}/emulator-cache
           key: ${{ runner.os }}-firebase-emulators-${{ hashFiles('emulator-cache/**') }}
+        continue-on-error: true
 
       - name: Install
         run: npm ci
@@ -45,7 +46,7 @@ jobs:
         uses: codecov/codecov-action@v3
 
       - name: Publish to Firebase
-        run: npx firebase --non-interactive -P ${{ FIREBASE_PROJECT_ID }} deploy --force -m "${{ GITHUB_REF_NAME }}"
+        run: npx firebase --non-interactive -P ${{ secrets.FIREBASE_PROJECT_ID }} deploy --force -m "${{ GITHUB_REF_NAME }}"
         env:
           GCP_SA_KEY: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_FIND_FIREWORKS }}"
           NODE_ENV: production
