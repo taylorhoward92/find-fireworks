@@ -1,0 +1,11 @@
+# Config file for Licencebat Github App
+
+[licenses]
+# Licenses that Licensebat will accept. The rest will be flagged as not allowed.
+accepted = ["MIT", "MSC", "BSD"]
+
+[dependencies]
+
+[behavior]
+# Will exit with code 1 in case some invalid dependency is found.
+do_not_block_pr = false

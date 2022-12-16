@@ -1,0 +1,51 @@
+# Publish when a release PR is merged
+name: Publish
+on:
+  push:
+    branches: [main]
+
+jobs:
+  publish:
+    if: "contains(github.event.head_commit.message, 'chore(main): release')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Use same Node.js version as Firebase Functions runtime.
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Cache Firebase Emulators
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.FIREBASE_EMULATORS_PATH }}
+          key: ${{ runner.os }}-firebase-emulators-${{ hashFiles('emulator-cache/**') }}
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run -ws build
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+
+      - name: Run tests with coverage
+        run: npm run -ws coverage
+
+      - name: Upload code coverage
+        uses: codecov/codecov-action@v3
+
+      - name: Publish to Firebase
+        run: npx firebase --non-interactive -P ${{ FIREBASE_PROJECT_ID }} deploy --force -m "${{ GITHUB_REF_NAME }}"
+        env:
+          GCP_SA_KEY: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_FIND_FIREWORKS }}"
+          NODE_ENV: production

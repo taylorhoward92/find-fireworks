@@ -1,0 +1,32 @@
+{
+  "name": "find-fireworks-backend",
+  "description": "Find Fireworks backend",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "homepage": "https://findfireworks.com.au",
+  "repository": "https://github.com/taylorhoward92/find-fireworks.git",
+  "author": {
+    "name": "Taylor Howard",
+    "email": "taylor.howard@abisko.com.au"
+  },
+  "bugs": {
+    "url": "https://github.com/taylorhoward92/find-fireworks/issues"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "npm-run-all build --parallel 'build -- --watch' serve-only",
+    "build": "tsc",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "serve-only": "firebase emulators:start"
+  },
+  "dependencies": {
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.0"
+  }
+}

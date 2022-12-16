@@ -1,0 +1,11 @@
+ls:
+  packages/*/src:
+    .ts: camelCase | PascalCase
+    .d.ts: camelCase
+    .spec.ts: camelCase | PascalCase
+
+ignore:
+  - node_modules
+  - .git
+  - .github
+  - .vscode

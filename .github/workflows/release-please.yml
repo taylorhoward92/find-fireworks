@@ -1,0 +1,16 @@
+name: Release PR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release please
+        uses: google-github-actions/release-please-action@v3
+        with:
+          token: {{ secrets.FIND_FIREWORKS_GITHUB_TOKEN }}
+          command: manifest

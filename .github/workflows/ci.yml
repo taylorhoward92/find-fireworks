@@ -1,0 +1,46 @@
+name: Build and Test
+
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v3
+
+      # Use same Node.js version as Firebase Functions runtime.
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Cache Firebase Emulators
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.FIREBASE_EMULATORS_PATH }}
+          key: ${{ runner.os }}-firebase-emulators-${{ hashFiles('emulator-cache/**') }}
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint file names
+        run: npm run ls-lint
+
+      - name: Lint code
+        run: npm run lint
+
+      - name: Build everything
+        run: npm run -ws build
+
+      - name: Run tests with coverage
+        run: npm run -ws coverage
+
+      - name: Upload code coverage
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true

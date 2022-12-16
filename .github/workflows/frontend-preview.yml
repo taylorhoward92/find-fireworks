@@ -1,0 +1,34 @@
+name: Frontend Preview
+
+on:
+  pull_request:
+    paths:
+      - "packages/find-fireworks-frontend/**"
+
+jobs:
+  build_and_preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Install
+        run: npm ci
+
+      - name: Build (frontend only)
+        run: npm run -w find-fireworks-frontend build
+
+      - name: Deploy to preview channel
+        id: deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_FIND_FIREWORKS }}"
+          expires: 30d
+          projectId: find-fireworks
+
+      # Audit the URL(s) deployed to Firebase preview channel.
+      - name: Lighthouse audit
+        uses: foo-software/lighthouse-check-action@master
+        with:
+          urls: "${{ steps.deploy.outputs.urls }}"

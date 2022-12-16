@@ -1,0 +1,29 @@
+{
+  "name": "find-fireworks-frontend",
+  "description": "Find Fireworks frontend",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "homepage": "https://findfireworks.com.au",
+  "repository": "https://github.com/taylorhoward92/find-fireworks.git",
+  "author": {
+    "name": "Taylor Howard",
+    "email": "taylor.howard@abisko.com.au"
+  },
+  "bugs": {
+    "url": "https://github.com/taylorhoward92/find-fireworks/issues"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check build-only",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
+  },
+  "dependencies": {
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
+  }
+}

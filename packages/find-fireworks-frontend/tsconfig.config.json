@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": ["vite.config.*", "cypress.config.*", "playwright.config.*"],
+  "compilerOptions": {
+    "lib": [],
+    "types": ["node"]
+  }
+}
