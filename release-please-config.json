@@ -1,6 +1,6 @@
 {
-    "packages": {
-      "packages/find-fireworks-backend": {},
-      "packages/find-fireworks-frontend": {}
-    }
-  }
+	"packages": {
+		"packages/find-fireworks-backend": {},
+		"packages/find-fireworks-frontend": {}
+	}
+}
