@@ -31,4 +31,4 @@ jobs:
       - name: Lighthouse audit
         uses: foo-software/lighthouse-check-action@master
         with:
-          urls: "${{ steps.deploy.outputs.urls }}"
+          urls: "${{ steps.deploy.outputs.details_url }}"
