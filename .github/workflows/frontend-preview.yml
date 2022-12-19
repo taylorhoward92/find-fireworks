@@ -31,5 +31,6 @@ jobs:
       - name: Lighthouse audit
         uses: foo-software/lighthouse-check-action@master
         with:
-          urls: "${{ steps.deploy.outputs.details_url }}"
+          device: all
           gitHubAccessToken: "${{ secrets.GITHUB_TOKEN }}"
+          urlsJson: "${{ steps.deploy.outputs.urls }}"
