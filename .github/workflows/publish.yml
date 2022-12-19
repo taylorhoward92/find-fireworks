@@ -42,8 +42,17 @@ jobs:
       - name: Run tests with coverage
         run: npm run -ws coverage
 
+      - name: Summarise test results in PR
+        uses: test-summary/action@v2
+        with:
+          paths: "**/coverage/results.xml"
+        if: always()
+
       - name: Upload code coverage
         uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
+        if: always()
 
       - name: Publish to Firebase
         run: npx firebase --non-interactive -P ${{ secrets.FIREBASE_PROJECT_ID }} deploy --force -m "${{ env.GITHUB_REF_NAME }}"

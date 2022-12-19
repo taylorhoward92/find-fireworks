@@ -39,9 +39,16 @@ jobs:
         run: npm run -ws build
 
       - name: Run tests with coverage
-        run: npm run -ws coverage
+        run: npm run -ws coverage -- --reporter=junit --outputFile=coverage/results.xml
+
+      - name: Summarise test results in PR
+        uses: test-summary/action@v2
+        with:
+          paths: "**/coverage/results.xml"
+        if: always()
 
       - name: Upload code coverage
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
+        if: always()
