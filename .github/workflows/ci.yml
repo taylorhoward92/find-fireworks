@@ -45,10 +45,9 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
           junit_files: "**/coverage/results.xml"
-        if: always()
+        if: ${{ github.actor != 'dependabot[bot]' }}
 
       - name: Upload code coverage
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
-        if: always()
