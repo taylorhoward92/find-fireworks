@@ -6,7 +6,7 @@ on:
 
 jobs:
   publish:
-    if: "contains(github.event.head_commit.message, 'chore(main): release')"
+    if: "contains(github.event.head_commit.message, 'chore: release main')"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -42,8 +42,17 @@ jobs:
       - name: Run tests with coverage
         run: npm run -ws coverage
 
+      - name: Summarise test results in PR
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          junit_files: "**/coverage/results.xml"
+        if: always()
+
       - name: Upload code coverage
         uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
+        if: always()
 
       - name: Publish to Firebase
         run: npx firebase --non-interactive -P ${{ secrets.FIREBASE_PROJECT_ID }} deploy --force -m "${{ env.GITHUB_REF_NAME }}"
