@@ -42,9 +42,9 @@ jobs:
         run: npm run -ws coverage -- --reporter=junit --outputFile=coverage/results.xml
 
       - name: Summarise test results in PR
-        uses: test-summary/action@v2
+        uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          paths: "**/coverage/results.xml"
+          junit_files: "**/coverage/results.xml"
         if: always()
 
       - name: Upload code coverage
