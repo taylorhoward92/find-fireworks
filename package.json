@@ -27,7 +27,7 @@
     "@ls-lint/ls-lint": "^1.11.2",
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/jsdom": "^20.0.1",
-    "@types/node": "^18.11.12",
+    "@types/node": "^18.11.17",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitest/coverage-c8": "^0.25.8",
     "@vue/eslint-config-prettier": "^7.0.0",
