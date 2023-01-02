@@ -35,7 +35,7 @@
     "@vue/test-utils": "^2.2.6",
     "commitizen": "^4.2.6",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.30.0",
+    "eslint": "^8.31.0",
     "eslint-plugin-vue": "^9.8.0",
     "firebase-functions-test": "^3.0.0",
     "husky": "^8.0.0",
