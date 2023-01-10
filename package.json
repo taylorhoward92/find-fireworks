@@ -22,7 +22,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.3.0",
+    "@commitlint/cli": "^17.4.1",
     "@commitlint/config-conventional": "^17.3.0",
     "@ls-lint/ls-lint": "^1.11.2",
     "@rushstack/eslint-patch": "^1.2.0",
